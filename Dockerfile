@@ -1,9 +1,9 @@
 ########################################################
 ############## We use a java base image ################
 ########################################################
-FROM eclipse-temurin:17-jre-focal AS build
-RUN apt-get update; \
-    apt-get install -y curl jq;
+FROM arm64v8/openjdk:17 AS build
+RUN apk update; \
+    apk add curl jq;
 
 LABEL Marc Tönsing <marc@marc.tv>, Nico Enking <nico.enking@gmail.com>
 
@@ -29,7 +29,7 @@ RUN set -eux; \
 ########################################################
 ############## Running environment #####################
 ########################################################
-FROM eclipse-temurin:17-jre-focal AS runtime
+FROM arm64v8/openjdk:17 AS runtime
 
 # Working directory
 WORKDIR /data
