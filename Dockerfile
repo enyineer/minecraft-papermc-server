@@ -3,7 +3,7 @@
 ########################################################
 FROM eclipse-temurin:17-jre-focal AS build
 RUN apt-get update; \
-    apt-get install -y curl jq wget;
+    apt-get install -y curl jq;
 
 LABEL Marc Tönsing <marc@marc.tv>, Nico Enking <nico.enking@gmail.com>
 
@@ -22,8 +22,9 @@ RUN /getpaperserver.sh ${version}
 RUN java -Dpaperclip.patchonly=true -jar /opt/minecraft/paperclip.jar; exit 0
 
 # Get su-exec
+WORKDIR /opt/bins
 RUN set -eux; \
-	wget https://github.com/NobodyXu/su-exec/releases/download/v0.3.1/su-exec;
+	curl -O https://github.com/NobodyXu/su-exec/releases/download/v0.3.1/su-exec;
 
 ########################################################
 ############## Running environment #####################
@@ -36,7 +37,7 @@ WORKDIR /data
 # Obtain runable jar from build stage
 COPY --from=build /opt/minecraft/paperclip.jar /opt/minecraft/paperspigot.jar
 
-COPY --from=build /opt/minecraft/su-exec /usr/local/bin/su-exec
+COPY --from=build /opt/bins/su-exec /usr/local/bin/su-exec
 RUN chmod +x /usr/local/bin/su-exec
 
 # Install and run rcon
