@@ -25,7 +25,7 @@ jobs:
       - name: Build
         run: |
           docker buildx build \
-          --build-arg version=$PAPER_VERSION
+          --build-arg version=$PAPER_VERSION \
           --push \
           --platform linux/arm64/v8 \
           --tag nicoenking/minecraft-papermc-server:$PAPER_VERSION .
