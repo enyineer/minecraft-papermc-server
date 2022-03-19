@@ -1,9 +1,9 @@
 ########################################################
 ############## We use a java base image ################
 ########################################################
-FROM arm64v8/alpine:3.12 AS build
-RUN apk update; \
-    apk add curl jq openjdk17-jre-headless;
+FROM openjdk:17-buster AS build
+RUN apt-get update; \
+    apt-get install -y curl jq;
 
 LABEL Marc Tönsing <marc@marc.tv>, Nico Enking <nico.enking@gmail.com>
 
