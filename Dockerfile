@@ -1,8 +1,8 @@
 ########################################################
 ############## We use a java base image ################
 ########################################################
-FROM arm64v8/openjdk:17 AS build
-RUN dnf install curl jq
+FROM eclipse-temurin:17-jre-focal AS build
+RUN apk-get install curl jq
 
 LABEL Marc Tönsing <marc@marc.tv>, Nico Enking <nico.enking@gmail.com>
 
@@ -23,7 +23,7 @@ RUN java -Dpaperclip.patchonly=true -jar /opt/minecraft/paperclip.jar; exit 0
 ########################################################
 ############## Running environment #####################
 ########################################################
-FROM arm64v8/openjdk:17 AS runtime
+FROM eclipse-temurin:17-jre-focal AS runtime
 
 # Working directory
 WORKDIR /data
