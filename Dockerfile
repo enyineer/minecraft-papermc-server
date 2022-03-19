@@ -1,7 +1,7 @@
 ########################################################
 ############## We use a java base image ################
 ########################################################
-FROM openjdk:17-buster AS build
+FROM eclipse-temurin:17-jre-focal AS build
 RUN apt-get update; \
     apt-get install -y curl jq;
 
@@ -29,7 +29,7 @@ RUN set -eux; \
 ########################################################
 ############## Running environment #####################
 ########################################################
-FROM arm64v8/openjdk:17 AS runtime
+FROM arm64v8/openjdk:17-jre-focal AS runtime
 
 # Working directory
 WORKDIR /data
