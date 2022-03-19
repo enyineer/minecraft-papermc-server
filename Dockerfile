@@ -29,7 +29,7 @@ RUN set -eux; \
 ########################################################
 ############## Running environment #####################
 ########################################################
-FROM arm64v8/openjdk:17-jre-focal AS runtime
+FROM eclipse-temurin:17-jre-focal AS runtime
 
 # Working directory
 WORKDIR /data
