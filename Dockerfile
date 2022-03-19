@@ -23,8 +23,7 @@ RUN java -Dpaperclip.patchonly=true -jar /opt/minecraft/paperclip.jar; exit 0
 
 # Get su-exec
 RUN set -eux; \
-	wget https://github.com/NobodyXu/su-exec/releases/download/v0.3.1/su-exec; \
-    chmod +x /usr/bin/su-exec;
+	wget https://github.com/NobodyXu/su-exec/releases/download/v0.3.1/su-exec;
 
 ########################################################
 ############## Running environment #####################
@@ -37,8 +36,8 @@ WORKDIR /data
 # Obtain runable jar from build stage
 COPY --from=build /opt/minecraft/paperclip.jar /opt/minecraft/paperspigot.jar
 
-COPY --from=build /opt/minecraft/su-exec /bin/su-exec
-RUN chmod +x /bin/su-exec
+COPY --from=build /opt/minecraft/su-exec /usr/local/bin/su-exec
+RUN chmod +x /usr/local/bin/su-exec
 
 # Install and run rcon
 ARG RCON_CLI_VER=1.4.8
