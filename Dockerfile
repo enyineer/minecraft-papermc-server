@@ -21,24 +21,19 @@ RUN /getpaperserver.sh ${version}
 # Run paperclip and obtain patched jar
 RUN java -Dpaperclip.patchonly=true -jar /opt/minecraft/paperclip.jar; exit 0
 
-# Get su-exec
-WORKDIR /opt/bins
-RUN set -eux; \
-	curl -O https://github.com/NobodyXu/su-exec/releases/download/v0.3.1/su-exec;
-
 ########################################################
 ############## Running environment #####################
 ########################################################
 FROM eclipse-temurin:17-jre-focal AS runtime
+
+RUN apt-get update; \
+    apt-get install -y gosu;
 
 # Working directory
 WORKDIR /data
 
 # Obtain runable jar from build stage
 COPY --from=build /opt/minecraft/paperclip.jar /opt/minecraft/paperspigot.jar
-
-COPY --from=build /opt/bins/su-exec /usr/local/bin/su-exec
-RUN chmod +x /usr/local/bin/su-exec
 
 # Install and run rcon
 ARG RCON_CLI_VER=1.4.8
