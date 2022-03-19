@@ -37,8 +37,8 @@ WORKDIR /data
 # Obtain runable jar from build stage
 COPY --from=build /opt/minecraft/paperclip.jar /opt/minecraft/paperspigot.jar
 
-COPY --from=build /opt/minecraft/su-exec /usr/bin/su-exec
-RUN chmod +x /usr/bin/su-exec
+COPY --from=build /opt/minecraft/su-exec /bin/su-exec
+RUN chmod +x /bin/su-exec
 
 # Install and run rcon
 ARG RCON_CLI_VER=1.4.8
