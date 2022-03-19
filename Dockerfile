@@ -2,7 +2,7 @@
 ############## We use a java base image ################
 ########################################################
 FROM eclipse-temurin:17-jre-focal AS build
-RUN apk-get install curl jq
+RUN apt-get install curl jq
 
 LABEL Marc Tönsing <marc@marc.tv>, Nico Enking <nico.enking@gmail.com>
 
